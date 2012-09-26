@@ -11,7 +11,7 @@ String.prototype.replaceAll = function(match, to) {
 		var partidaID = false,
 			participanteID = false,
 			nome = false,
-			socket = io.connect('http://localhost:8080');
+			socket = io.connect('http://daniloster.forca-game.jit.su:8080');
 		
 		socket.on('atualizarMeuID', function(data) {
 			if (!participanteID) {
