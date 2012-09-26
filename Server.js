@@ -4,7 +4,7 @@ var fs = require('fs');
 var forca = require('./Forca');
 //var forca = require('./ForcaWorks');
 
-app.listen(8080);
+app.listen();
 
 var clientes = [];
 
