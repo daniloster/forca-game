@@ -1,39 +1,120 @@
 <html>
 	<head>
-		<title>Forca</title>
+		<title>
+            Guess the Word Game   
+		</title>
 		<meta content="text/html; charset=UTF-8" />
-		<style
-			.13column {
-				width:33%;
-				float:left;
-			}
-		></style>
+        
+        <link rel="stylesheet" href="/css/bootstrap.css">
+        <link rel="stylesheet" href="/css/userInterface.css">
+        <link rel="stylesheet" href="/css/keyboard.css">
+        
+        <!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script-->
+        <script src="/socket.io/socket.io.js"></script>
+		<script src="/js/jquery.js"></script>
+        <script src="/js/jquery.keyboard.js"></script>
+        <script src="/js/bootstrap.js"></script>
+		<script src="/js/cliente.js"></script>
 	</head>
 	<body>
-		<h1>Forca Game</h1>
-		<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script -->
-		<script src="/js/jquery.js"></script>
-		<script src="/socket.io/socket.io.js"></script>
-		<script src="/js/cliente.js"></script>
-		<div class='13column'>
-			<div>
-				<h2 id='headerName'>Type your nickname</h2>
-				<label id='lblNome' for='nome'>Player Name</label><input id="nome" type="text" value=""/><br />
-				<input type="button" id='enviarNome' value="Set Name" /><br />
-			</div>
-			<div id='minhaPartida'>
-				<img id='erros' style="width:120px;height:160px;"/><br /><br />
-				<span id="segredo"></span><br /><br /><br />
-				<label for='novaPlavra'>New Word</label><input id="novaPalavra" type="text" value=""/><br />
-				<input type="button" id='novoJogo' value="New Game" /><br />
-				<span id='erro'></span>
-			</div>
+        
+        <div id='div-popover' class='panelNewWord hide'>
+            <input id='txtNovaPalavra' type='text' value='Type here a word.'/>
+            <button id="btnEnviarNovaPalavra" class="btn btn-primary">Enviar</button>
+        </div>
+        
+    	<h1 class='themeColor'>GWG</h1>
+        <div class='toolBar themeColor'>
+            <ul class='menuToolBar themeColor'>
+                <li>
+                    <label id='lblNome' class='nome' for='nome'>Player Name</label>
+                    <input id='nome' class='nome' type='text' value='Type your nickname.'/>
+                    <a id='btnAlterarNome' href='#' class='btn btn-primary' disabled='disabled'>Sign in...</a>
+                </li>
+                <li style='display:none;'>
+                    <a href='#' id='btnNovaPalavra' class='themeColor'>New Word</a>
+                </li>
+                <li style='display:none;'>
+                    <a href='#' id='btnSair' class='themeColor'>Quit</a>
+                </li>
+                <li><span id='erro'></span></li>
+            </ul>
+        </div>
+		<div id='minhaPartida' class='column13' style='visibility:hidden;'>
+			<img id='erros' style="width:120px;height:160px;"/>
+			<span id="segredo"></span>
+            <button id='btnKeyboard' class='btn btn-primary'>Keyboard</button>
 		</div>
-		<div id='partidasEmAndamento' class='13column'>
+		<div id='partidasEmAndamento' class='column13'>
 			
 		</div>
-		<div id='historico' class='13column'>
+		<div id='historico' class='column13'>
 			
 		</div>
+        <!--
+        <div class="keyboard" style="display: none;">
+            <ul class="keyboard-row">
+                <li class="keyboard-key">@<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">1<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">2<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">3<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">4<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">5<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">6<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">7<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">8<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">9<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">0<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key keyboard-key-backSpace">⌫<ul class="keyboard-alt"></ul></li>
+            </ul>
+            <ul class="keyboard-row">
+                <li class="keyboard-key keyboard-key-tab">⇥<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">q<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">w<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">e<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">r<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">t<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">y<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">u<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">i<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">o<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">p<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key keyboard-key-return">⏎<ul class="keyboard-alt"></ul></li>
+            </ul>
+            <ul class="keyboard-row">
+                <li class="keyboard-key keyboard-key-capsLock">⇪<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">a<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">s<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">d<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">f<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">g<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">h<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">j<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">k<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">l<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">,<ul class="keyboard-alt"><li class="keyboard-alt-key">:</li>
+                <li class="keyboard-alt-key">;</li></ul></li>
+            </ul>
+            <ul class="keyboard-row">
+                <li class="keyboard-key keyboard-key-leftShift">⇧<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">z<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">x<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">c<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">v<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">b<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">n<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">m<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">.<ul class="keyboard-alt"><li class="keyboard-alt-key">?</li><li class="keyboard-alt-key">!</li><li class="keyboard-alt-key">;</li></ul></li>
+                <li class="keyboard-key">'<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key">:)<ul class="keyboard-alt"><li class="keyboard-alt-key">;)</li><li class="keyboard-alt-key">X)</li><li class="keyboard-alt-key">8)</li><li class="keyboard-alt-key">:(</li></ul></li>
+                <li class="keyboard-key keyboard-key-rightShift">⇧<ul class="keyboard-alt"></ul></li>
+            </ul>
+            <ul class="keyboard-row">
+                <li class="keyboard-key keyboard-key-space"> <ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key keyboard-key-leftArrow">←<ul class="keyboard-alt"></ul></li>
+                <li class="keyboard-key keyboard-key-rightArrow">→<ul class="keyboard-alt"></ul></li>
+            </ul>
+        </div>
+        -->
 	</body>
 </html>

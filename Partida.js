@@ -26,6 +26,24 @@ Partida.prototype.adicionarParticipante = function Partida_adicionarParticipante
 	return false;
 };
 
+Partida.prototype.removerParticipante = function Partida_removerParticipante(participante) {
+    if (this.criadaPor.id !== participante.id) {
+		var indiceParticipante = null;
+		for (var i = 0; i < this.participantes.length; i++) {
+			if (this.participantes[i].id == participante.id) {
+				indiceParticipante = i;
+				break;
+			}
+		}
+		if (indiceParticipante) {
+			delete this.participantes[indiceParticipante];
+			participante.partida = null;
+			return participante;
+		}
+	}
+	return participante;
+};
+
 Partida.prototype.finalizar = function Partida_finalizar() {
 	this.terminou = true;
 	var nomesParticipantes = false;

@@ -1,6 +1,5 @@
 {
   "name": "forca-game",
-  "subdomain": "daniloster.forca-game",
   "scripts": {
     "start": "Server.js"
   },

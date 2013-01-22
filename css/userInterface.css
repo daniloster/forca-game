@@ -1,0 +1,86 @@
+h1 {
+    margin:0;
+}
+body {
+    border:0;
+    margin:0;
+    padding:0;
+}
+.themeColor {
+    background-color:#333;
+    color:white;
+}
+a:link.themeColor, a:active.themeColor, a:visited.themeColor, a:hover.themeColor {
+    background-color:#333;
+    color:#39C;
+    font-weight:bold;
+}
+.themeRightBorder {
+    border-right:2px dashed #444;
+}
+.toolBar {
+    width:100%;
+    margin:0;
+    padding:0;
+    overflow-y:auto;
+}
+.menuToolBar {
+    background-color:transparent;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    overflow-y:auto;
+}
+.menuToolBar li {
+    float:left;
+    margin:0;
+    padding:7px 10px;
+}
+.menuToolBar li a {
+    font-size:.9em;
+    text-decoration:none;
+}
+.nome, #nome {
+    margin:0;
+}
+#nome {
+    width:160px;
+    height:28px;
+    padding:4px 12px;
+}
+#lblNome {
+    display:none;
+}
+.popover-inner {
+    color:#000;
+}
+.panelNewWord {
+    font-size:.87em;
+}
+.column13 {
+    padding:20px 0;
+	width:33%;
+	float:left;
+    overflow-y:auto;
+}
+.partidaDisponivel {
+    display:block;
+    overflow-y:auto;
+}
+.palavraDaPartida {
+    display:block;
+    float:left;
+}
+.jogadoresDaPartida {
+    display:block;
+    overflow-y:auto;
+}
+.btnEntraNaPartida {
+    clear:both;
+}
+
+.ui-keyboard{padding: .3em; position: absolute; z-index: 16000;}
+.ui-keyboard-button{height: 2em; width: 2em; margin: .1em;}
+.ui-keyboard-actionkey{width: 4em;}
+.ui-keyboard-space{width: 15em;}
+.ui-keyboard-preview{width: 100%; text-align: left;} 

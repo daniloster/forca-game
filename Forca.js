@@ -66,6 +66,16 @@ var Forca = {
 		Forca.participantes.push(participante);
 		return participante;
 	},
+    limparConexaoDoParticipante: function(participanteID) {
+        var participante = Forca.obterParticipante(participanteID);
+        participante.socket.disconnect();
+        participante.socket = null;
+        
+    },
+    renovarConexaoDoParticipante: function(participanteID, socket) {
+        var participante = Forca.obterParticipante(participanteID);
+        participante.socket = socket;
+    },
 	finalizarPartida: function(partida) {
 		Forca.removerPartida(partida.id);
 		Forca.historico.push(partida.finalizar());
@@ -85,7 +95,14 @@ var Forca = {
 			}
 		}
 		return null;
-	}
+	},
+    desistirDePartida: function(participanteID) {
+        var participante = Forca.obterParticipante(participanteID);
+        if (participante.partida) {
+            return participante.partida.removerParticipante(participante);
+        }
+    	return participante;
+    }
 };
 
 module.exports = {
